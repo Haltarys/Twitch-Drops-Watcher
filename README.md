@@ -63,6 +63,8 @@ Copy the `.env.example` file and rename it to `.env`.
 
 Go to <https://dev.twitch.tv/console/apps>, log into your Twitch account and create a new app. Generate a client ID and secret and save them to the `.env` file.
 
+Read more at <https://dev.twitch.tv/docs/api/get-started>.
+
 ### Google configuration
 
 Go to <https://console.cloud.google.com/apis/dashboard>, log into your Google account and create a new Cloud project. From that project, create credentials and paste them into the `.env` file.
