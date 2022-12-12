@@ -1,6 +1,6 @@
 {
   "name": "twitch-drops-watcher",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Script to periodically scan for Twitch Drops for a given game.",
   "keywords": [
     "twitch",
@@ -8,6 +8,10 @@
   ],
   "homepage": "https://github.com/Haltarys/Twitch-Drops-Watcher",
   "main": "dist/index.js",
+  "bin": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "repository": "git@github.com:Haltarys/Twitch-Drops-Watcher.git",
   "author": "Haltarys <gregoire.haardt@gmail.com>",
   "license": "MIT",
