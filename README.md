@@ -24,7 +24,7 @@ The exact name of the videogame you want can be found at <https://www.twitch.tv/
 
 ### NPM script
 
-You can run it as an NPM script `npx ...` or `yarn ...`. See below for configuration.
+You can run it as an NPM script with `npx twitch-drops-watcher`. See below for configuration.
 
 ### From source
 
