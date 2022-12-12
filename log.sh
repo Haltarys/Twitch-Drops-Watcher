@@ -6,6 +6,6 @@ envfile="$HOME/twitch-drops-watcher.env"
 defaults=("Mortal Shell" "Mortal Shell: Enhanced Edition") # Default values
 games=("${@:-"${defaults[@]}"}")
 
-echo $(date) >> $logfile
+date >> $logfile
 (npx twitch-drops-watcher "${games[@]}" --drops --env $envfile 2>&1) >> $logfile
 echo >> $logfile
