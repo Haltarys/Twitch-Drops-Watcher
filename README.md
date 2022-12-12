@@ -1,3 +1,3 @@
 # Twitch Drops Watcher
 
-Script to periodically scan for Twitch Drops for a given game.
+Script to scan for Twitch Drops for a given game.
