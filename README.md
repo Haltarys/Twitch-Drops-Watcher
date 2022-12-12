@@ -1,6 +1,6 @@
 # Twitch Drops Watcher
 
-Script to scan for Twitch Drops for a given game.
+Script to scan for Twitch Drops for a given list of games.
 
 ## Generate new refresh token
 
