@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import type { Credentials, Game, TwitchStream } from './entities';
+import type { TwitchCredentials, TwitchGame, TwitchStream } from './entities';
 
 export default class TwitchAPIClient {
   private client: AxiosInstance;
@@ -9,7 +9,7 @@ export default class TwitchAPIClient {
    * @param clientId The client ID from the Twitch API.
    * @param credentials An object returned by the Twitch API containing an access token.
    */
-  private constructor(clientId: string, credentials: Credentials) {
+  private constructor(clientId: string, credentials: TwitchCredentials) {
     this.client = axios.create({
       baseURL: 'https://api.twitch.tv/helix',
       headers: {
@@ -40,10 +40,8 @@ export default class TwitchAPIClient {
    * @param gameNames An array of videogame names.
    * @returns An array of videogame Twitch IDs.
    */
-  async getGameIds(gameNames: string[]): Promise<string[]> {
-    return this.client
-      .get(`/games?name=${gameNames.join('&name=')}`)
-      .then((res) => res.data.data.map((game: Game) => game.id));
+  async getTwitchGames(gameNames: string[]): Promise<TwitchGame[]> {
+    return this.client.get(`/games?name=${gameNames.join('&name=')}`).then((res) => res.data.data);
   }
 
   /**

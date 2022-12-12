@@ -1,10 +1,10 @@
-export class Credentials {
+export class TwitchCredentials {
   access_token: string;
   expires_in: number;
   token_type: string;
 }
 
-export class Game {
+export class TwitchGame {
   box_art_url: string;
   id: string;
   name: string;

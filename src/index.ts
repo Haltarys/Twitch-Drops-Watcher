@@ -1,53 +1,60 @@
-import dotenv from 'dotenv';
+import { program } from 'commander';
+import path from 'path';
+import GmailSender from './email';
+import getEnvVariables from './env';
 import TwitchAPIClient from './TwitchAPIClient';
 
-// Import env variables from .env file
-dotenv.config();
-
-function printHelp(): void {
-  console.log(
-    [
-      'USAGE: node . [OPTION]... GAMES...',
-      '\t -d, --drops\n\t\tOnly show streams with Twitch Drops enabled',
-      '\t -h, --help\n\t\tShow this help and exit',
-    ].join('\n')
-  );
-}
-
 async function main(): Promise<void> {
-  if (process.argv.some((arg) => arg === '-h' || arg === '--help')) {
-    printHelp();
-  } else {
-    const dropsEnabled = process.argv.some((arg) => arg === '-d' || arg === '--drops');
-    const gameNames = process.argv.slice(2).filter((arg) => arg[0] != '-');
+  program
+    .name('twitch-drops-watcher')
+    .description('CLI tool to check for Twitch live streams with Drops Enabled for a given game.')
+    .version('1.0.0')
+    .arguments('<games...>')
+    .option('-d, --drops', 'only show live streams with Twitch Drops enabled.', false)
+    .option('-e, --env <path>', 'path to the .env file to load', './.env');
 
-    if (gameNames.length === 0) {
-      console.error('Please pass at least one game name as a command line argument.');
-      return;
-    }
+  program.parse();
 
-    const clientId = process.env.TWITCH_CLIENT_ID!;
-    const clientSecret = process.env.TWITCH_CLIENT_SECRET!;
-    const client = await TwitchAPIClient.create(clientId, clientSecret);
+  const options = program.opts(),
+    gameNames = program.args;
+  const { twitch, google } = getEnvVariables(options.env);
 
-    const liveStreams = await client
-      .getGameIds(gameNames)
-      .then((gameIds) => client.getLiveStreams(gameIds, dropsEnabled));
-    if (liveStreams.length > 0) {
-      liveStreams.forEach((stream) => {
-        console.log(
-          `${stream.user_name} is playing ${stream.game_name} live at ${TwitchAPIClient.buildTwitchURL(stream)}!`
-        );
-      });
-    } else {
+  const client = await TwitchAPIClient.create(twitch.clientId, twitch.clientSecret);
+
+  const liveStreams = await client.getTwitchGames(gameNames).then((games) =>
+    client.getLiveStreams(
+      games.map(({ id }) => id),
+      options.drops
+    )
+  );
+
+  if (liveStreams.length > 0) {
+    liveStreams.forEach((stream) => {
       console.log(
-        [
-          'No one is live for the following games:',
-          ...gameNames,
-          "Check the game names, remove the 'Drops Enabled' filter, or come back later.",
-        ].join('\n')
+        `${stream.user_name} is playing ${stream.game_name} live at ${TwitchAPIClient.buildTwitchURL(stream)}!`
       );
-    }
+    });
+
+    const html = liveStreams
+      .map((stream) => {
+        const url = TwitchAPIClient.buildTwitchURL(stream);
+        return `<div>${stream.user_name} is playing ${stream.game_name} live at <a href="${url}">${url}</a>!<div>`;
+      })
+      .join('\n');
+
+    await new GmailSender(google).sendEmail({
+      to: google.gmailAddress,
+      subject: `Twitch Drops Watcher: someone${options.drops ? ' with Drops enabled' : ''} is live!`,
+      html,
+    });
+  } else {
+    console.log(
+      [
+        'No one is live for the following games:',
+        ...gameNames,
+        "Check the game names, remove the 'Drops Enabled' filter, or come back later.",
+      ].join('\n')
+    );
   }
 }
 
