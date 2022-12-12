@@ -9,7 +9,7 @@ async function main(): Promise<void> {
   program
     .name('twitch-drops-watcher')
     .description('CLI tool to check for Twitch live streams with Drops Enabled for a given list of games.')
-    .version('1.0.0')
+    .version(require('../package.json').version)
     .arguments('<games...>')
     .option('-d, --drops', 'only show live streams with Twitch Drops enabled.', false)
     .option('-e, --env <path>', 'path to the .env file to load', './.env');

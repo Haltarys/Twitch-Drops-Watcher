@@ -1,6 +1,6 @@
 {
   "name": "twitch-drops-watcher",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Script to periodically scan for Twitch Drops for a given game.",
   "keywords": [
     "twitch",
