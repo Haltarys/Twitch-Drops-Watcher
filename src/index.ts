@@ -42,8 +42,9 @@ async function main(): Promise<void> {
     } else {
       console.log(
         [
-          `No one is live for the following games: ${gameNames}.`,
-          "Check the game names, disable the 'Drops Enabled' tag, or come back later.",
+          'No one is live for the following games:',
+          ...gameNames,
+          "Check the game names, remove the 'Drops Enabled' filter, or come back later.",
         ].join('\n')
       );
     }
