@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 # Run and log results
 logfile="$HOME/twitch-drops-watcher.log"
