@@ -52,7 +52,7 @@ async function main(): Promise<void> {
       console.log(`Email sent to ${google.gmailAddress}.`);
     } catch (err) {
       console.error('An error occurred while sending the email. Check your Google credentials.');
-      console.error(err);
+      throw err;
     }
   } else {
     console.log(
