@@ -1,0 +1,23 @@
+{
+  "name": "twitch-drops-watcher",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Script to periodically scan for Twitch Drops for a given game.",
+  "main": "dist/index.js",
+  "repository": "git@github.com:Haltarys/Twitch-Drops-Watcher.git",
+  "author": "Haltarys <gregoire.haardt@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "start:prod": "node dist/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.3",
+    "typescript": "^4.7.4"
+  }
+}
