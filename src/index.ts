@@ -43,11 +43,17 @@ async function main(): Promise<void> {
       })
       .join('\n');
 
-    await new GmailSender(google).sendEmail({
-      to: google.gmailAddress,
-      subject: `Twitch Drops Watcher: someone${options.drops ? ' with Drops enabled' : ''} is live!`,
-      html,
-    });
+    try {
+      await new GmailSender(google).sendEmail({
+        to: google.gmailAddress,
+        subject: `Twitch Drops Watcher: someone${options.drops ? ' with Drops enabled' : ''} is live!`,
+        html,
+      });
+      console.log(`Email sent to ${google.gmailAddress}.`);
+    } catch (err) {
+      console.error('An error occurred while sending the email. Check your Google credentials.');
+      console.error(err);
+    }
   } else {
     console.log(
       [
