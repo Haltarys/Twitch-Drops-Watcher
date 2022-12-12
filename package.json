@@ -1,6 +1,5 @@
 {
   "name": "twitch-drops-watcher",
-  "type": "module",
   "version": "1.0.0",
   "description": "Script to periodically scan for Twitch Drops for a given game.",
   "main": "dist/index.js",
@@ -10,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "start:prod": "node dist/index.js"
+    "start:prod": "node ."
   },
   "dependencies": {
     "axios": "^0.27.2",
