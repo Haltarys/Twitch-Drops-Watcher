@@ -1,5 +1,4 @@
 import { program } from 'commander';
-import path from 'path';
 import GmailSender from './email';
 import getEnvVariables from './env';
 import TwitchAPIClient from './TwitchAPIClient';
