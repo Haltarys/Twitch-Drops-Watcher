@@ -2,11 +2,12 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 /**
- * retrieves and checks for the correct environment variables.
+ * Retrieves and checks for the correct environment variables.
  * @param envPath The path to the .env file to be loaded (current working directory by default.)
  * @returns An object containing the relevant environment variables loaded.
  */
 export default function getEnvVariables(envPath: string) {
+  // Doesn't throw an error even if the path is incorrect
   dotenv.config({ path: path.resolve(envPath) });
 
   const vars = {
