@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { program } from 'commander';
 import GmailSender from './email';
 import getEnvVariables from './env';
