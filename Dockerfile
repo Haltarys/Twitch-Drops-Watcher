@@ -10,4 +10,4 @@ COPY . .
 
 RUN yarn run build
 
-CMD [ "node", ".", "Mortal Shell", "Mortal Shell: Enhanced Edition", "--drops" ]
+ENTRYPOINT [ "node", "."]
