@@ -8,7 +8,7 @@ import TwitchAPIClient from './TwitchAPIClient';
 async function main(): Promise<void> {
   program
     .name('twitch-drops-watcher')
-    .description('CLI tool to check for Twitch live streams with Drops Enabled for a given game.')
+    .description('CLI tool to check for Twitch live streams with Drops Enabled for a given list of games.')
     .version('1.0.0')
     .arguments('<games...>')
     .option('-d, --drops', 'only show live streams with Twitch Drops enabled.', false)
